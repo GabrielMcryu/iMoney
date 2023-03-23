@@ -44,9 +44,4 @@ public class TransactionController {
 		return transactionService.fetchTransactionsByAccountNumber(merchant, accountNumber);
 	}
 	
-	@GetMapping("/transactions/account/{accountNumber}")
-	public TransactionEntity getTransactionByAccountNumber(@PathVariable("accountNumber") int accountNumber) {
-		return transactionService.fetchTransactionByAccountNumber(accountNumber);
-	}
-	
 }
