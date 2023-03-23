@@ -1,5 +1,7 @@
 package com.gabriel.imoney.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,21 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public TransactionEntity saveTransaction(@Valid TransactionEntity transactionEntity) {
 		return transactionRepository.save(transactionEntity);
+	}
+	
+	@Override
+	public List<TransactionEntity> fetchTransactionList() {
+		return transactionRepository.findAll();
+	}
+	
+	@Override
+	public List<TransactionEntity> fetchTransactionsByAccountNumber(String merchant, int accountNumber) {
+		return transactionRepository.findAllByMerchantAndAccountNumber(merchant, accountNumber);
+	}
+
+	@Override
+	public TransactionEntity fetchTransactionByAccountNumber(int accountNumber) {
+		return transactionRepository.findByAccountNumber(accountNumber);
 	}
 
 }

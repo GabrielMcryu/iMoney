@@ -1,6 +1,7 @@
 package com.gabriel.imoney.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +27,26 @@ public class TransactionController {
 	@Autowired
 	private TransactionService transactionService;
 	
-	private final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
-
 	@PostMapping("/transactions")
 	public TransactionEntity createTransaction(@Valid @RequestBody TransactionEntity transactionEntity) {
 		Date createdAt = new Date();
 		transactionEntity.setCreatedAt(createdAt);
 		return transactionService.saveTransaction(transactionEntity);
 	}
+	
+	@GetMapping("/transactions")
+	public List<TransactionEntity> fetchTransactionList() {
+		return transactionService.fetchTransactionList();
+	}
+	
+	@GetMapping("/transactions/{merchant}/{accountNumber}")
+	public List<TransactionEntity> fetchTransactionsByAccountNumber(@PathVariable("merchant") String merchant, @PathVariable("accountNumber") int accountNumber) {
+		return transactionService.fetchTransactionsByAccountNumber(merchant, accountNumber);
+	}
+	
+	@GetMapping("/transactions/account/{accountNumber}")
+	public TransactionEntity getTransactionByAccountNumber(@PathVariable("accountNumber") int accountNumber) {
+		return transactionService.fetchTransactionByAccountNumber(accountNumber);
+	}
+	
 }
