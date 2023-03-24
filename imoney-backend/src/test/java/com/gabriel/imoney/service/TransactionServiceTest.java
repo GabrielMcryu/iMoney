@@ -16,7 +16,6 @@ import com.gabriel.imoney.entity.TransactionEntity;
 import com.gabriel.imoney.repository.TransactionRepository;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class TransactionServiceTest {
