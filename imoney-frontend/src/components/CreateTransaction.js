@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import TransactionService from '../services/TransactionService'
+import {saveTransaction} from '../services/TransactionService'
 
 import './CreateTransactionStyles.css'
 
@@ -21,9 +21,9 @@ const CreateTransaction = () => {
         setTransaction({...transaction, [e.target.name]: value});
     }
 
-    const saveTransaction = (e) => {
+    const saveATransaction = (e) => {
         e.preventDefault();
-        TransactionService.saveTransaction(transaction)
+        saveTransaction(transaction)
             .then((response) => {
                 navigate("/");
             })
@@ -93,7 +93,7 @@ const CreateTransaction = () => {
                 </select>
             </div>
             <div>
-                <button onClick={saveTransaction}>Save</button>
+                <button onClick={saveATransaction}>Save</button>
                 <button onClick={reset}>Clear</button>
             </div>
         </div>

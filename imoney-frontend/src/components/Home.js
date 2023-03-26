@@ -13,7 +13,7 @@ const Home = () => {
         <input type="text" name="search" placeholder="Enter account number" id="search-input"></input>
         <select className="select-field" name="choices" id="search-choice">
           <option value="Paypal">Paypal</option>
-          <option value="Mpesa">Mpesa</option>
+          <option value="NCBA">NCBA</option>
         </select>
         <button className="btn-search" id="search-btn">Search</button>
       </div>
