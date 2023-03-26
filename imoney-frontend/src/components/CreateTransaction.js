@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {saveTransaction} from '../services/TransactionService'
+import { saveTransaction } from '../services/TransactionService'
 
 import './CreateTransactionStyles.css'
 
 const CreateTransaction = () => {
 
     const [transaction, setTransaction] = useState({
-        "senderName": "",
-        "accountNumber": "",
-        "amount": 0,
-        "merchant": ""
+        senderName: "",
+        accountNumber: "",
+        amount: 0,
+        merchant: ""
     })
 
     const navigate = useNavigate();
@@ -35,10 +35,10 @@ const CreateTransaction = () => {
     const reset = (e) => {
         e.preventDefault();
         setTransaction({
-            id: "",
-            firstName: "",
-            lastName: "",
-            emailId: "",
+            senderName: "",
+            accountNumber: "",
+            amount: 0,
+            merchant: ""
         });
     }
 

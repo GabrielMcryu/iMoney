@@ -1,0 +1,17 @@
+h1 {
+    text-align: center;
+    padding: 2.4rem;
+    font-size: 4.8rem;
+}
+
+.form-div {
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+}
+
+table, th, td {
+    border:1px solid black;
+}
