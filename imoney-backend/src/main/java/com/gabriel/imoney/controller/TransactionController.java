@@ -21,7 +21,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.imoney.dtos.AccessTokenResponse;
 import com.gabriel.imoney.dtos.AcknowledgeResponse;
+import com.gabriel.imoney.dtos.B2CData;
 import com.gabriel.imoney.dtos.B2CTransactionAsyncResponse;
+import com.gabriel.imoney.dtos.C2BData;
 import com.gabriel.imoney.dtos.CommonSyncResponse;
 import com.gabriel.imoney.dtos.InternalB2CTransactionRequest;
 import com.gabriel.imoney.dtos.MpesaValidationResponse;
@@ -79,6 +81,9 @@ public class TransactionController {
 		return ResponseEntity.ok(transactionService.registerUrl());
 	}
 	
+	//////////////////////////////////
+	// C2B
+	
 	@PostMapping(path = "/validation", produces = "application/json")
 	public ResponseEntity<AcknowledgeResponse> mpesaValidation(@RequestBody MpesaValidationResponse mpesaValidationResponse) {
 		return ResponseEntity.ok(acknowledgeResponse);
@@ -89,6 +94,14 @@ public class TransactionController {
 		return ResponseEntity.ok(transactionService.simulateC2BTransaction(simulateTransactionRequest));
 	}
 	
+	@PostMapping(path = "/create-c2b-transaction", produces = "application/json")
+	public ResponseEntity<SimulateTransactionResponse> createC2BTransaction(@RequestBody C2BData c2BData) {
+		return ResponseEntity.ok(transactionService.createC2BTransaction(c2BData));
+	}
+	
+	//////////////////////////////////
+	// B2C
+		
 	@PostMapping(path = "/transaction-result", produces = "application/json")
 	public ResponseEntity<AcknowledgeResponse> b2cTransactionAsyncResults(@RequestBody B2CTransactionAsyncResponse b2CTransactionAsyncResponse) throws JsonProcessingException {
 		log.info("============ B2C Transaction Response =============");
@@ -104,6 +117,11 @@ public class TransactionController {
 	@PostMapping(path = "/b2c-transaction", produces = "application/json")
 	public ResponseEntity<CommonSyncResponse> performB2CTransaction(@RequestBody InternalB2CTransactionRequest internalB2CTransactionRequest) {
 		return ResponseEntity.ok(transactionService.performB2CTransaction(internalB2CTransactionRequest));
+	}
+	
+	@PostMapping(path = "/create-b2c-transaction", produces = "application/json")
+	public ResponseEntity<CommonSyncResponse> createB2CTransaction(@RequestBody B2CData b2CData) {
+		return ResponseEntity.ok(transactionService.createB2CTransaction(b2CData));
 	}
 }
 

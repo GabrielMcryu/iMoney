@@ -2,8 +2,14 @@ package com.gabriel.imoney.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SimulateTransactionRequest {
+public class C2BData {
 
+	@JsonProperty("SenderName")
+	private String senderName;
+	
+	@JsonProperty("Merchant")
+	private String merchant;
+	
 	@JsonProperty("ShortCode")
 	private String shortCode;
 	
@@ -18,12 +24,22 @@ public class SimulateTransactionRequest {
 	
 	@JsonProperty("CommandID")
 	private String commandID;
-	
-	private String responseDescription;
 
-	private String responseCode;
-	
-	private String originatorCoversationID;
+	public String getSenderName() {
+		return senderName;
+	}
+
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+
+	public String getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(String merchant) {
+		this.merchant = merchant;
+	}
 
 	public String getShortCode() {
 		return shortCode;
@@ -65,12 +81,14 @@ public class SimulateTransactionRequest {
 		this.commandID = commandID;
 	}
 
-	public SimulateTransactionRequest() {
+	public C2BData() {
 
 	}
 
-	public SimulateTransactionRequest(String shortCode, String msisdn, String billRefNumber, String amount,
-			String commandID) {
+	public C2BData(String senderName, String merchant, String shortCode, String msisdn, String billRefNumber,
+			String amount, String commandID) {
+		this.senderName = senderName;
+		this.merchant = merchant;
 		this.shortCode = shortCode;
 		this.msisdn = msisdn;
 		this.billRefNumber = billRefNumber;
@@ -80,8 +98,8 @@ public class SimulateTransactionRequest {
 
 	@Override
 	public String toString() {
-		return "SimulateTransactionRequest [shortCode=" + shortCode + ", msisdn=" + msisdn + ", billRefNumber="
-				+ billRefNumber + ", amount=" + amount + ", commandID=" + commandID + "]";
+		return "C2BData [senderName=" + senderName + ", merchant=" + merchant + ", shortCode=" + shortCode + ", msisdn="
+				+ msisdn + ", billRefNumber=" + billRefNumber + ", amount=" + amount + ", commandID=" + commandID + "]";
 	}
 	
 	

@@ -21,7 +21,11 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.imoney.config.MpesaConfiguration;
 import com.gabriel.imoney.dtos.AccessTokenResponse;
+import com.gabriel.imoney.dtos.B2CData;
+import com.gabriel.imoney.dtos.B2CTransaction;
 import com.gabriel.imoney.dtos.B2CTransactionRequest;
+import com.gabriel.imoney.dtos.C2BData;
+import com.gabriel.imoney.dtos.C2BTransaction;
 import com.gabriel.imoney.dtos.CommonSyncResponse;
 import com.gabriel.imoney.dtos.InternalB2CTransactionRequest;
 import com.gabriel.imoney.dtos.RegisterUrlRequest;
@@ -131,10 +135,18 @@ public class TransactionServiceImpl implements TransactionService{
 			return null;
 		}
 	}
-
+	
 	@Override
-	public SimulateTransactionResponse simulateC2BTransaction(SimulateTransactionRequest simulateTransactionRequest) {
+	public SimulateTransactionResponse createC2BTransaction(C2BData c2BData) {
 		AccessTokenResponse accessTokenResponse = getAccessToken();
+		
+		SimulateTransactionRequest simulateTransactionRequest = new SimulateTransactionRequest();
+		
+		simulateTransactionRequest.setShortCode(c2BData.getShortCode());
+		simulateTransactionRequest.setCommandID(c2BData.getCommandID());
+		simulateTransactionRequest.setMsisdn(c2BData.getMsisdn());
+		simulateTransactionRequest.setAmount(c2BData.getAmount());
+		simulateTransactionRequest.setBillRefNumber(c2BData.getBillRefNumber());
 		
 		@SuppressWarnings("deprecation")
 		RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, Objects.requireNonNull(HelperUtility.toJson(simulateTransactionRequest)));
@@ -148,15 +160,67 @@ public class TransactionServiceImpl implements TransactionService{
 		try {
 			Response response = okHttpClient.newCall(request).execute();
 			assert response.body() != null;
+			
+			String responseBody = response.body().string();
+
+			// Use ObjectMapper to deserialize the response into your DTO
+			SimulateTransactionResponse simulateTransactionResponse = objectMapper.readValue(responseBody, SimulateTransactionResponse.class);
+			
+			C2BTransaction c2BTransaction = new C2BTransaction();
+			
+			c2BTransaction.setSenderName(c2BData.getSenderName());
+			c2BTransaction.setMerchant(c2BData.getMerchant());
+			c2BTransaction.setShortCode(c2BData.getShortCode());
+			c2BTransaction.setCommandID(c2BData.getCommandID());
+			c2BTransaction.setMsisdn(c2BData.getMsisdn());
+			c2BTransaction.setAmount(c2BData.getAmount());
+			c2BTransaction.setBillRefNumber(c2BData.getBillRefNumber());
+			c2BTransaction.setResponseDescription(simulateTransactionResponse.getResponseDescription());
+			c2BTransaction.setResponseCode(simulateTransactionResponse.getResponseCode());
+			c2BTransaction.setOriginatorCoversationID(simulateTransactionResponse.getOriginatorCoversationID());
+			
+			System.out.println(c2BTransaction);
+			
+			return simulateTransactionResponse;
 		
+//			return objectMapper.readValue(response.body().string(), SimulateTransactionResponse.class);
+		} catch(IOException e) {
+			LoggerFactory.getLogger(TransactionServiceImpl.class).error("Could not simulate C2B transaction -> {}", e.getLocalizedMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public SimulateTransactionResponse simulateC2BTransaction(SimulateTransactionRequest simulateTransactionRequest) {
+		AccessTokenResponse accessTokenResponse = getAccessToken();
+		
+		@SuppressWarnings("deprecation")
+		RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, Objects.requireNonNull(HelperUtility.toJson(simulateTransactionRequest)));
+		
+		System.out.println(simulateTransactionRequest);
+		
+		Request request = new Request.Builder()
+				.url(mpesaConfiguration.getSimulateTransactionEndpoint())
+				.post(body)
+				.addHeader(AUTHORIZATION_HEADER_STRING, String.format("%s %s", BEARER_AUTH_STRING, accessTokenResponse.getAccessToken()))
+				.build();
+		
+		try {
+			Response response = okHttpClient.newCall(request).execute();
+			assert response.body() != null;
+			
+			
+			
 			return objectMapper.readValue(response.body().string(), SimulateTransactionResponse.class);
+			
 		} catch(IOException e) {
 			LoggerFactory.getLogger(TransactionServiceImpl.class).error("Could not simulate C2B transaction -> {}", e.getLocalizedMessage());
 			return null;
 		}
 						
-		
 	}
+	
+	
 
 	@Override
 	public CommonSyncResponse performB2CTransaction(InternalB2CTransactionRequest internalB2CTransactionRequest) {
@@ -206,5 +270,79 @@ public class TransactionServiceImpl implements TransactionService{
         	return null;
         }
 	}
+
+	@Override
+	public CommonSyncResponse createB2CTransaction(B2CData b2CData) {
+		AccessTokenResponse accessTokenResponse = getAccessToken();
+		Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
+		logger.info("Access Token: {}", accessTokenResponse.getAccessToken());
+		
+		B2CTransactionRequest b2CTransactionRequest = new B2CTransactionRequest();
+		
+		b2CTransactionRequest.setCommandID(b2CData.getCommandID());
+		b2CTransactionRequest.setAmount(b2CData.getAmount());
+		b2CTransactionRequest.setPartyB(b2CData.getPartyB());
+		b2CTransactionRequest.setRemarks(b2CData.getRemarks());
+		b2CTransactionRequest.setOccassion(b2CData.getOccassion());
+		
+		try {
+        	b2CTransactionRequest.setSecurityCredential(HelperUtility.getSecurityCredentials(mpesaConfiguration.getB2cInitiatorPassword()));	
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
+        logger.info("Security Creds: {}", b2CTransactionRequest.getSecurityCredential());
+        
+        // set the result url ...
+        b2CTransactionRequest.setResultURL(mpesaConfiguration.getB2cResultUrl());
+        b2CTransactionRequest.setQueueTimeOutURL(mpesaConfiguration.getB2cQueueTimeoutUrl());
+        b2CTransactionRequest.setInitiatorName(mpesaConfiguration.getB2cInitiatorName());
+        b2CTransactionRequest.setPartyA(mpesaConfiguration.getShortCode());
+		
+		@SuppressWarnings("deprecation")
+        RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, Objects.requireNonNull(HelperUtility.toJson(b2CTransactionRequest)));
+        
+        Request request = new Request.Builder()
+                .url(mpesaConfiguration.getB2cTransactionEndpoint())
+                .post(body)
+                .addHeader(AUTHORIZATION_HEADER_STRING, String.format("%s %s", BEARER_AUTH_STRING, accessTokenResponse.getAccessToken()))
+                .build();
+        
+        try {
+        	Response response = okHttpClient.newCall(request).execute();
+        	
+        	assert response.body() != null;
+        	
+        	String responseBody = response.body().string();
+
+			// Use ObjectMapper to deserialize the response into your DTO
+        	CommonSyncResponse commonSyncResponse = objectMapper.readValue(responseBody, CommonSyncResponse.class);
+        	
+        	B2CTransaction b2CTransaction = new B2CTransaction();
+        	
+        	b2CTransaction.setSenderAccount(b2CData.getSenderAccount());
+        	b2CTransaction.setMerchant(b2CData.getMerchant());
+        	b2CTransaction.setCommandID(b2CData.getCommandID());
+        	b2CTransaction.setAmount(b2CData.getAmount());
+        	b2CTransaction.setPartyB(b2CData.getPartyB());
+        	b2CTransaction.setRemarks(b2CData.getRemarks());
+        	b2CTransaction.setOccassion(b2CData.getOccassion());
+        	b2CTransaction.setConversationID(commonSyncResponse.getConversationID());
+        	b2CTransaction.setResponseCode(commonSyncResponse.getResponseCode());
+        	b2CTransaction.setOriginatorConversationID(commonSyncResponse.getOriginatorConversationID());
+        	b2CTransaction.setResponseDescription(commonSyncResponse.getResponseDescription());
+        	
+        	System.out.println(b2CTransaction);
+        	
+        	
+//        	return objectMapper.readValue(response.body().string(), CommonSyncResponse.class);
+        	return commonSyncResponse;
+        } catch (IOException e) {
+        	logger.error("Could not perform B2C transaction ->{}", e.getLocalizedMessage());
+        	return null;
+        }
+	}
+
+	
 
 }
