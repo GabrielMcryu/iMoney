@@ -10,6 +10,9 @@ public class C2BData {
 	@JsonProperty("Merchant")
 	private String merchant;
 	
+	@JsonProperty("ReceiverAccountNumber")
+	private Long receiverAccountNumber;
+	
 	@JsonProperty("ShortCode")
 	private String shortCode;
 	
@@ -81,14 +84,23 @@ public class C2BData {
 		this.commandID = commandID;
 	}
 
+	public Long getReceiverAccountNumber() {
+		return receiverAccountNumber;
+	}
+
+	public void setReceiverAccountNumber(Long receiverAccountNumber) {
+		this.receiverAccountNumber = receiverAccountNumber;
+	}
+
 	public C2BData() {
 
 	}
 
-	public C2BData(String senderName, String merchant, String shortCode, String msisdn, String billRefNumber,
-			String amount, String commandID) {
+	public C2BData(String senderName, String merchant, Long receiverAccountNumber, String shortCode, String msisdn,
+			String billRefNumber, String amount, String commandID) {
 		this.senderName = senderName;
 		this.merchant = merchant;
+		this.receiverAccountNumber = receiverAccountNumber;
 		this.shortCode = shortCode;
 		this.msisdn = msisdn;
 		this.billRefNumber = billRefNumber;
@@ -98,9 +110,12 @@ public class C2BData {
 
 	@Override
 	public String toString() {
-		return "C2BData [senderName=" + senderName + ", merchant=" + merchant + ", shortCode=" + shortCode + ", msisdn="
-				+ msisdn + ", billRefNumber=" + billRefNumber + ", amount=" + amount + ", commandID=" + commandID + "]";
+		return "C2BData [senderName=" + senderName + ", merchant=" + merchant + ", receiverAccountNumber="
+				+ receiverAccountNumber + ", shortCode=" + shortCode + ", msisdn=" + msisdn + ", billRefNumber="
+				+ billRefNumber + ", amount=" + amount + ", commandID=" + commandID + "]";
 	}
+
+	
 	
 	
 }

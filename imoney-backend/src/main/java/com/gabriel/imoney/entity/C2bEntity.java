@@ -1,7 +1,16 @@
-package com.gabriel.imoney.dtos;
+package com.gabriel.imoney.entity;
 
-public class C2BTransaction {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class C2bEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long c2bId;
+	
 	private String senderName;
 	
 	private String merchant;
@@ -23,6 +32,14 @@ public class C2BTransaction {
 	private String responseCode;
 	
 	private String originatorCoversationID;
+
+	public Long getC2bId() {
+		return c2bId;
+	}
+
+	public void setC2bId(Long c2bId) {
+		this.c2bId = c2bId;
+	}
 
 	public String getSenderName() {
 		return senderName;
@@ -111,16 +128,15 @@ public class C2BTransaction {
 	public void setOriginatorCoversationID(String originatorCoversationID) {
 		this.originatorCoversationID = originatorCoversationID;
 	}
-	
-	
 
-	public C2BTransaction() {
-
+	public C2bEntity() {
+		
 	}
 
-	public C2BTransaction(String senderName, String merchant, Long receiverAccountNumber, String shortCode,
+	public C2bEntity(Long c2bId, String senderName, String merchant, Long receiverAccountNumber, String shortCode,
 			String msisdn, String billRefNumber, String amount, String commandID, String responseDescription,
 			String responseCode, String originatorCoversationID) {
+		this.c2bId = c2bId;
 		this.senderName = senderName;
 		this.merchant = merchant;
 		ReceiverAccountNumber = receiverAccountNumber;
@@ -136,14 +152,12 @@ public class C2BTransaction {
 
 	@Override
 	public String toString() {
-		return "C2BTransaction [senderName=" + senderName + ", merchant=" + merchant + ", ReceiverAccountNumber="
-				+ ReceiverAccountNumber + ", shortCode=" + shortCode + ", msisdn=" + msisdn + ", billRefNumber="
-				+ billRefNumber + ", amount=" + amount + ", commandID=" + commandID + ", responseDescription="
-				+ responseDescription + ", responseCode=" + responseCode + ", originatorCoversationID="
-				+ originatorCoversationID + "]";
+		return "C2bEntity [c2bId=" + c2bId + ", senderName=" + senderName + ", merchant=" + merchant
+				+ ", ReceiverAccountNumber=" + ReceiverAccountNumber + ", shortCode=" + shortCode + ", msisdn=" + msisdn
+				+ ", billRefNumber=" + billRefNumber + ", amount=" + amount + ", commandID=" + commandID
+				+ ", responseDescription=" + responseDescription + ", responseCode=" + responseCode
+				+ ", originatorCoversationID=" + originatorCoversationID + "]";
 	}
 
-	
-	
 	
 }

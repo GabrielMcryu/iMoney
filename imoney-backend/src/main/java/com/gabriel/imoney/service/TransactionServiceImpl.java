@@ -32,7 +32,11 @@ import com.gabriel.imoney.dtos.RegisterUrlRequest;
 import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
+import com.gabriel.imoney.entity.AccountEntity;
+import com.gabriel.imoney.entity.C2bEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
+import com.gabriel.imoney.repository.AccountRepository;
+import com.gabriel.imoney.repository.C2BRepository;
 import com.gabriel.imoney.repository.TransactionRepository;
 import com.gabriel.imoney.utils.HelperUtility;
 
@@ -46,6 +50,12 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private AccountRepository accountRepository;
+	
+	@Autowired 
+	private C2BRepository c2BRepository;
 	
 	private final MpesaConfiguration mpesaConfiguration;
 	private final OkHttpClient okHttpClient;
@@ -162,24 +172,36 @@ public class TransactionServiceImpl implements TransactionService{
 			assert response.body() != null;
 			
 			String responseBody = response.body().string();
+			
+			AccountEntity accountEntity = accountRepository.findById(c2BData.getReceiverAccountNumber()).get();
+			
+			int oldAmount = accountEntity.getBalance();
+			
+			int amount = Integer.parseInt(c2BData.getAmount());
+			
+			int total = amount + oldAmount;
+			
+			accountEntity.setBalance(total);
+			accountRepository.save(accountEntity);
 
 			// Use ObjectMapper to deserialize the response into your DTO
 			SimulateTransactionResponse simulateTransactionResponse = objectMapper.readValue(responseBody, SimulateTransactionResponse.class);
 			
-			C2BTransaction c2BTransaction = new C2BTransaction();
+			C2bEntity c2bEntity = new C2bEntity();
 			
-			c2BTransaction.setSenderName(c2BData.getSenderName());
-			c2BTransaction.setMerchant(c2BData.getMerchant());
-			c2BTransaction.setShortCode(c2BData.getShortCode());
-			c2BTransaction.setCommandID(c2BData.getCommandID());
-			c2BTransaction.setMsisdn(c2BData.getMsisdn());
-			c2BTransaction.setAmount(c2BData.getAmount());
-			c2BTransaction.setBillRefNumber(c2BData.getBillRefNumber());
-			c2BTransaction.setResponseDescription(simulateTransactionResponse.getResponseDescription());
-			c2BTransaction.setResponseCode(simulateTransactionResponse.getResponseCode());
-			c2BTransaction.setOriginatorCoversationID(simulateTransactionResponse.getOriginatorCoversationID());
+			c2bEntity.setSenderName(c2BData.getSenderName());
+			c2bEntity.setMerchant(c2BData.getMerchant());
+			c2bEntity.setReceiverAccountNumber(c2BData.getReceiverAccountNumber());			
+			c2bEntity.setShortCode(c2BData.getShortCode());
+			c2bEntity.setCommandID(c2BData.getCommandID());
+			c2bEntity.setMsisdn(c2BData.getMsisdn());
+			c2bEntity.setAmount(c2BData.getAmount());
+			c2bEntity.setBillRefNumber(c2BData.getBillRefNumber());
+			c2bEntity.setResponseDescription(simulateTransactionResponse.getResponseDescription());
+			c2bEntity.setResponseCode(simulateTransactionResponse.getResponseCode());
+			c2bEntity.setOriginatorCoversationID(simulateTransactionResponse.getOriginatorCoversationID());
 			
-			System.out.println(c2BTransaction);
+			c2BRepository.save(c2bEntity);
 			
 			return simulateTransactionResponse;
 		
