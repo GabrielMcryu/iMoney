@@ -1,7 +1,16 @@
-package com.gabriel.imoney.dtos;
+package com.gabriel.imoney.entity;
 
-public class B2CTransaction {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class B2cEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long b2cId;
+	
 	private Long senderAccount;
 	
 	private String merchant;
@@ -23,6 +32,14 @@ public class B2CTransaction {
 	private String responseCode;
 	
 	private String responseDescription;
+
+	public Long getB2cId() {
+		return b2cId;
+	}
+
+	public void setB2cId(Long b2cId) {
+		this.b2cId = b2cId;
+	}
 
 	public Long getSenderAccount() {
 		return senderAccount;
@@ -112,13 +129,14 @@ public class B2CTransaction {
 		this.responseDescription = responseDescription;
 	}
 
-	public B2CTransaction() {
+	public B2cEntity() {
 
 	}
 
-	public B2CTransaction(Long senderAccount, String merchant, String commandID, String amount, String partyB,
+	public B2cEntity(Long b2cId, Long senderAccount, String merchant, String commandID, String amount, String partyB,
 			String remarks, String occassion, String conversationID, String originatorConversationID,
 			String responseCode, String responseDescription) {
+		this.b2cId = b2cId;
 		this.senderAccount = senderAccount;
 		this.merchant = merchant;
 		this.commandID = commandID;
@@ -134,11 +152,14 @@ public class B2CTransaction {
 
 	@Override
 	public String toString() {
-		return "B2CTransaction [senderAccount=" + senderAccount + ", merchant=" + merchant + ", commandID=" + commandID
-				+ ", amount=" + amount + ", partyB=" + partyB + ", remarks=" + remarks + ", occassion=" + occassion
-				+ ", conversationID=" + conversationID + ", originatorConversationID=" + originatorConversationID
-				+ ", responseCode=" + responseCode + ", responseDescription=" + responseDescription + "]";
+		return "B2cEntity [b2cId=" + b2cId + ", senderAccount=" + senderAccount + ", merchant=" + merchant
+				+ ", commandID=" + commandID + ", amount=" + amount + ", partyB=" + partyB + ", remarks=" + remarks
+				+ ", occassion=" + occassion + ", conversationID=" + conversationID + ", originatorConversationID="
+				+ originatorConversationID + ", responseCode=" + responseCode + ", responseDescription="
+				+ responseDescription + "]";
 	}
+	
+	
 	
 	
 }

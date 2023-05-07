@@ -25,7 +25,6 @@ import com.gabriel.imoney.dtos.B2CData;
 import com.gabriel.imoney.dtos.B2CTransaction;
 import com.gabriel.imoney.dtos.B2CTransactionRequest;
 import com.gabriel.imoney.dtos.C2BData;
-import com.gabriel.imoney.dtos.C2BTransaction;
 import com.gabriel.imoney.dtos.CommonSyncResponse;
 import com.gabriel.imoney.dtos.InternalB2CTransactionRequest;
 import com.gabriel.imoney.dtos.RegisterUrlRequest;
@@ -33,9 +32,11 @@ import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
 import com.gabriel.imoney.entity.AccountEntity;
+import com.gabriel.imoney.entity.B2cEntity;
 import com.gabriel.imoney.entity.C2bEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 import com.gabriel.imoney.repository.AccountRepository;
+import com.gabriel.imoney.repository.B2CRepository;
 import com.gabriel.imoney.repository.C2BRepository;
 import com.gabriel.imoney.repository.TransactionRepository;
 import com.gabriel.imoney.utils.HelperUtility;
@@ -56,6 +57,9 @@ public class TransactionServiceImpl implements TransactionService{
 	
 	@Autowired 
 	private C2BRepository c2BRepository;
+	
+	@Autowired 
+	private B2CRepository b2CRepository;
 	
 	private final MpesaConfiguration mpesaConfiguration;
 	private final OkHttpClient okHttpClient;
@@ -336,26 +340,37 @@ public class TransactionServiceImpl implements TransactionService{
         	assert response.body() != null;
         	
         	String responseBody = response.body().string();
+        	
+        	AccountEntity accountEntity = accountRepository.findById(b2CData.getSenderAccount()).get();
+        	
+        	int oldAmount = accountEntity.getBalance();
+        	
+        	int amount = Integer.parseInt(b2CData.getAmount());
+        	
+        	int newAmount = oldAmount - amount;
+        	
+        	accountEntity.setBalance(newAmount);
+        	accountRepository.save(accountEntity);
 
 			// Use ObjectMapper to deserialize the response into your DTO
         	CommonSyncResponse commonSyncResponse = objectMapper.readValue(responseBody, CommonSyncResponse.class);
         	
         	B2CTransaction b2CTransaction = new B2CTransaction();
+        	B2cEntity b2cEntity = new B2cEntity();
         	
-        	b2CTransaction.setSenderAccount(b2CData.getSenderAccount());
-        	b2CTransaction.setMerchant(b2CData.getMerchant());
-        	b2CTransaction.setCommandID(b2CData.getCommandID());
-        	b2CTransaction.setAmount(b2CData.getAmount());
-        	b2CTransaction.setPartyB(b2CData.getPartyB());
-        	b2CTransaction.setRemarks(b2CData.getRemarks());
-        	b2CTransaction.setOccassion(b2CData.getOccassion());
-        	b2CTransaction.setConversationID(commonSyncResponse.getConversationID());
-        	b2CTransaction.setResponseCode(commonSyncResponse.getResponseCode());
-        	b2CTransaction.setOriginatorConversationID(commonSyncResponse.getOriginatorConversationID());
-        	b2CTransaction.setResponseDescription(commonSyncResponse.getResponseDescription());
+        	b2cEntity.setSenderAccount(b2CData.getSenderAccount());
+        	b2cEntity.setMerchant(b2CData.getMerchant());
+        	b2cEntity.setCommandID(b2CData.getCommandID());
+        	b2cEntity.setAmount(b2CData.getAmount());
+        	b2cEntity.setPartyB(b2CData.getPartyB());
+        	b2cEntity.setRemarks(b2CData.getRemarks());
+        	b2cEntity.setOccassion(b2CData.getOccassion());
+        	b2cEntity.setConversationID(commonSyncResponse.getConversationID());
+        	b2cEntity.setResponseCode(commonSyncResponse.getResponseCode());
+        	b2cEntity.setOriginatorConversationID(commonSyncResponse.getOriginatorConversationID());
+        	b2cEntity.setResponseDescription(commonSyncResponse.getResponseDescription());
         	
-        	System.out.println(b2CTransaction);
-        	
+        	b2CRepository.save(b2cEntity);
         	
 //        	return objectMapper.readValue(response.body().string(), CommonSyncResponse.class);
         	return commonSyncResponse;

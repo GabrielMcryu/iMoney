@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class B2CData {
 
 	@JsonProperty("SenderAccount")
-	private String senderAccount;
+	private Long senderAccount;
 	
 	@JsonProperty("Merchant")
 	private String merchant;
@@ -25,11 +25,11 @@ public class B2CData {
 	@JsonProperty("Occassion")
 	private String occassion;
 
-	public String getSenderAccount() {
+	public Long getSenderAccount() {
 		return senderAccount;
 	}
 
-	public void setSenderAccount(String senderAccount) {
+	public void setSenderAccount(Long senderAccount) {
 		this.senderAccount = senderAccount;
 	}
 
@@ -85,7 +85,9 @@ public class B2CData {
 		
 	}
 
-	public B2CData(String senderAccount, String merchant, String commandID, String amount, String partyB, String remarks,
+	
+
+	public B2CData(Long senderAccount, String merchant, String commandID, String amount, String partyB, String remarks,
 			String occassion) {
 		this.senderAccount = senderAccount;
 		this.merchant = merchant;
