@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.imoney.config.MpesaConfiguration;
 import com.gabriel.imoney.dtos.AccessTokenResponse;
 import com.gabriel.imoney.dtos.B2CData;
-import com.gabriel.imoney.dtos.B2CTransaction;
 import com.gabriel.imoney.dtos.B2CTransactionRequest;
 import com.gabriel.imoney.dtos.C2BData;
 import com.gabriel.imoney.dtos.CommonSyncResponse;
@@ -34,10 +33,12 @@ import com.gabriel.imoney.dtos.SimulateTransactionResponse;
 import com.gabriel.imoney.entity.AccountEntity;
 import com.gabriel.imoney.entity.B2cEntity;
 import com.gabriel.imoney.entity.C2bEntity;
+import com.gabriel.imoney.entity.ITransactionEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 import com.gabriel.imoney.repository.AccountRepository;
 import com.gabriel.imoney.repository.B2CRepository;
 import com.gabriel.imoney.repository.C2BRepository;
+import com.gabriel.imoney.repository.ITransactionRepository;
 import com.gabriel.imoney.repository.TransactionRepository;
 import com.gabriel.imoney.utils.HelperUtility;
 
@@ -60,6 +61,9 @@ public class TransactionServiceImpl implements TransactionService{
 	
 	@Autowired 
 	private B2CRepository b2CRepository;
+	
+	@Autowired
+	private ITransactionRepository iTransactionRepository;
 	
 	private final MpesaConfiguration mpesaConfiguration;
 	private final OkHttpClient okHttpClient;
@@ -355,7 +359,6 @@ public class TransactionServiceImpl implements TransactionService{
 			// Use ObjectMapper to deserialize the response into your DTO
         	CommonSyncResponse commonSyncResponse = objectMapper.readValue(responseBody, CommonSyncResponse.class);
         	
-        	B2CTransaction b2CTransaction = new B2CTransaction();
         	B2cEntity b2cEntity = new B2cEntity();
         	
         	b2cEntity.setSenderAccount(b2CData.getSenderAccount());
@@ -378,6 +381,28 @@ public class TransactionServiceImpl implements TransactionService{
         	logger.error("Could not perform B2C transaction ->{}", e.getLocalizedMessage());
         	return null;
         }
+	}
+
+	@Override
+	public ITransactionEntity saveITransaction(@Valid ITransactionEntity iTransactionEntity) {
+		AccountEntity senderAccount = accountRepository.findById(iTransactionEntity.getSenderAccount()).get();
+		AccountEntity receiverAccount = accountRepository.findById(iTransactionEntity.getReceiverAccount()).get();
+		
+		int oldSenderBalance = senderAccount.getBalance();
+		int oldReceiverBalance = receiverAccount.getBalance();
+		
+		int amount = iTransactionEntity.getAmount();
+		
+		int newSenderBalance = oldSenderBalance - amount;
+		int newReceiverBalance = oldReceiverBalance + amount;
+		
+		senderAccount.setBalance(newSenderBalance);
+		receiverAccount.setBalance(newReceiverBalance);
+		
+		accountRepository.save(senderAccount);
+		accountRepository.save(receiverAccount);
+		
+		return iTransactionRepository.save(iTransactionEntity);
 	}
 
 	

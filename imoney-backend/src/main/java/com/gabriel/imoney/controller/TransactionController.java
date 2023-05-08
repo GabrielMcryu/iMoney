@@ -30,6 +30,7 @@ import com.gabriel.imoney.dtos.MpesaValidationResponse;
 import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
+import com.gabriel.imoney.entity.ITransactionEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 import com.gabriel.imoney.service.TransactionService;
 
@@ -66,6 +67,13 @@ public class TransactionController {
 	@GetMapping("/transactions/{merchant}/{accountNumber}")
 	public List<TransactionEntity> fetchTransactionsByAccountNumber(@PathVariable("merchant") String merchant, @PathVariable("accountNumber") int accountNumber) {
 		return transactionService.fetchTransactionsByAccountNumber(merchant, accountNumber);
+	}
+	
+	@PostMapping("/itransactions")
+	public ITransactionEntity createITransaction(@Valid @RequestBody ITransactionEntity iTransactionEntity) {
+		Date createdAt = new Date();
+		iTransactionEntity.setCreatedAt(createdAt);
+		return transactionService.saveITransaction(iTransactionEntity);
 	}
 	
 	/////////////////////////////////////////////

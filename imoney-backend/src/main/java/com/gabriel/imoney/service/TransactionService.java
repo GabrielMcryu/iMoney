@@ -12,6 +12,7 @@ import com.gabriel.imoney.dtos.InternalB2CTransactionRequest;
 import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
+import com.gabriel.imoney.entity.ITransactionEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 
 public interface TransactionService {
@@ -21,6 +22,8 @@ public interface TransactionService {
 	List<TransactionEntity> fetchTransactionList();
 
 	List<TransactionEntity> fetchTransactionsByAccountNumber(String merchant, int accountNumber);
+	
+	ITransactionEntity saveITransaction(@Valid ITransactionEntity iTransactionEntity);
 	
 	TransactionEntity fetchTransactionByAccountNumber(int accountNumber);
 
