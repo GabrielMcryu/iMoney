@@ -15,7 +15,7 @@ public class C2bEntity {
 	
 	private String merchant;
 	
-	private Long ReceiverAccountNumber;
+	private Long receiverAccountNumber;
 	
 	private String shortCode;
 	
@@ -58,11 +58,11 @@ public class C2bEntity {
 	}
 
 	public Long getReceiverAccountNumber() {
-		return ReceiverAccountNumber;
+		return receiverAccountNumber;
 	}
 
 	public void setReceiverAccountNumber(Long receiverAccountNumber) {
-		ReceiverAccountNumber = receiverAccountNumber;
+		this.receiverAccountNumber = receiverAccountNumber;
 	}
 
 	public String getShortCode() {
@@ -139,7 +139,7 @@ public class C2bEntity {
 		this.c2bId = c2bId;
 		this.senderName = senderName;
 		this.merchant = merchant;
-		ReceiverAccountNumber = receiverAccountNumber;
+		this.receiverAccountNumber = receiverAccountNumber;
 		this.shortCode = shortCode;
 		this.msisdn = msisdn;
 		this.billRefNumber = billRefNumber;
@@ -153,7 +153,7 @@ public class C2bEntity {
 	@Override
 	public String toString() {
 		return "C2bEntity [c2bId=" + c2bId + ", senderName=" + senderName + ", merchant=" + merchant
-				+ ", ReceiverAccountNumber=" + ReceiverAccountNumber + ", shortCode=" + shortCode + ", msisdn=" + msisdn
+				+ ", ReceiverAccountNumber=" + receiverAccountNumber + ", shortCode=" + shortCode + ", msisdn=" + msisdn
 				+ ", billRefNumber=" + billRefNumber + ", amount=" + amount + ", commandID=" + commandID
 				+ ", responseDescription=" + responseDescription + ", responseCode=" + responseCode
 				+ ", originatorCoversationID=" + originatorCoversationID + "]";

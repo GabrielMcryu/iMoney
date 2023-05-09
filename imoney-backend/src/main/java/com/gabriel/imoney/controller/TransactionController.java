@@ -30,6 +30,8 @@ import com.gabriel.imoney.dtos.MpesaValidationResponse;
 import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
+import com.gabriel.imoney.entity.B2cEntity;
+import com.gabriel.imoney.entity.C2bEntity;
 import com.gabriel.imoney.entity.ITransactionEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 import com.gabriel.imoney.service.TransactionService;
@@ -74,6 +76,21 @@ public class TransactionController {
 		Date createdAt = new Date();
 		iTransactionEntity.setCreatedAt(createdAt);
 		return transactionService.saveITransaction(iTransactionEntity);
+	}
+	
+	@GetMapping("/itransaction/{senderAccount}")
+	public List<ITransactionEntity> fetchTransactionsBySender(@PathVariable("senderAccount") Long senderAccount) {
+		return transactionService.fetchTransactionsBySender(senderAccount);
+	}
+	
+	@GetMapping("/c2b-transaction/{receiverAccountNumber}")
+	public List<C2bEntity> fetchC2BTransactionsByReceiver(@PathVariable("receiverAccountNumber") Long receiverAccountNumber) {
+		return transactionService.fetchC2bTransactionsByReceiver(receiverAccountNumber);
+	}
+	
+	@GetMapping("/b2c-transaction/{senderAccount}")
+	public List<B2cEntity> fetchB2CTransactionsBySender(@PathVariable("senderAccount") Long senderAccountNumber) {
+		return transactionService.fetchB2cTransactionsBySender(senderAccountNumber);
 	}
 	
 	/////////////////////////////////////////////

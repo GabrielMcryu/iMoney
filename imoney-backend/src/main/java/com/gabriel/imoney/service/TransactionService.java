@@ -12,6 +12,8 @@ import com.gabriel.imoney.dtos.InternalB2CTransactionRequest;
 import com.gabriel.imoney.dtos.RegisterUrlResponse;
 import com.gabriel.imoney.dtos.SimulateTransactionRequest;
 import com.gabriel.imoney.dtos.SimulateTransactionResponse;
+import com.gabriel.imoney.entity.B2cEntity;
+import com.gabriel.imoney.entity.C2bEntity;
 import com.gabriel.imoney.entity.ITransactionEntity;
 import com.gabriel.imoney.entity.TransactionEntity;
 
@@ -25,6 +27,8 @@ public interface TransactionService {
 	
 	ITransactionEntity saveITransaction(@Valid ITransactionEntity iTransactionEntity);
 	
+	List<ITransactionEntity> fetchTransactionsBySender(Long senderAccount);
+	
 	TransactionEntity fetchTransactionByAccountNumber(int accountNumber);
 
 	AccessTokenResponse getAccessToken();
@@ -34,8 +38,12 @@ public interface TransactionService {
 	SimulateTransactionResponse simulateC2BTransaction(SimulateTransactionRequest simulateTransactionRequest);
 	
 	SimulateTransactionResponse createC2BTransaction(C2BData c2Bdata);
+	
+	List<C2bEntity> fetchC2bTransactionsByReceiver(Long receiverAccountNumber);
 
 	CommonSyncResponse performB2CTransaction(InternalB2CTransactionRequest internalB2CTransactionRequest);
 	
 	CommonSyncResponse createB2CTransaction(B2CData b2CData);
+	
+	List<B2cEntity> fetchB2cTransactionsBySender(Long senderAccount);
 }

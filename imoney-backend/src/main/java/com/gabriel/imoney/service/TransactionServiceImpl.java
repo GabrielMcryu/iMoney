@@ -405,6 +405,21 @@ public class TransactionServiceImpl implements TransactionService{
 		return iTransactionRepository.save(iTransactionEntity);
 	}
 
+	@Override
+	public List<ITransactionEntity> fetchTransactionsBySender(Long senderAccount) {
+		return iTransactionRepository.findAllBySenderAccount(senderAccount);
+	}
+
+	@Override
+	public List<C2bEntity> fetchC2bTransactionsByReceiver(Long receiverAccountNumber) {
+		return c2BRepository.findAllByReceiverAccountNumber(receiverAccountNumber);
+	}
+
+	@Override
+	public List<B2cEntity> fetchB2cTransactionsBySender(Long senderAccount) {
+		return b2CRepository.findAllBySenderAccount(senderAccount);
+	}
+
 	
 
 }
