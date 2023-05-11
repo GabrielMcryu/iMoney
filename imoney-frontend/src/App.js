@@ -5,6 +5,12 @@ import GetTransactionsByAccountNumber from './components/GetTransactionsByAccoun
 
 import Home from './components/Home';
 import Navbar from './components/Navbar';
+import ITransactions from './components/ITransactions';
+import B2cTransactions from './components/B2cTransactions';
+import C2bTransactions from './components/C2bTransactions';
+import ITransactionsList from './components/ITransactionsList';
+import C2bTransactionsList from './components/C2bTransactionsList';
+import B2cTransactionsList from './components/B2cTransactionsList';
 
 function App() {
   return (
@@ -16,6 +22,12 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/createTransaction' element={<CreateTransaction />} />
         <Route path='/getTransactionsByAcountNumber/:merchant/:accountNumber' element={<GetTransactionsByAccountNumber />} />
+        <Route path='/imoneyTransactions' element={<ITransactions />} />
+        <Route path='/getImoneyTransactions/:accountNumber' element={<ITransactionsList />} />
+        <Route path='/b2cTransactions' element={<B2cTransactions />} />
+        <Route path='getb2cTransactions/:accountNumber' element={<B2cTransactionsList />} />
+        <Route path='/c2bTransactions' element={<C2bTransactions />}/>
+        <Route path='/getc2bTransactions/:accountNumber' element={<C2bTransactionsList />} />
       </Routes>
     </BrowserRouter>
     </>

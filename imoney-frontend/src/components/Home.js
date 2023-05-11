@@ -52,6 +52,14 @@ const Home = () => {
       <div className="search-option">
         <button className="btn-search" id="search-btn" onClick={() => navigate("/createTransaction")}>Make a Transaction</button>
       </div>
+      <div className="search-option">
+        <ul>
+          <li><a href="#">Search Account</a></li>
+          <li><a href="/imoneyTransactions">iMoney Transactions</a></li>
+          <li><a href="/c2bTransactions">C2B Transactions</a></li>
+          <li><a href="/b2cTransactions">B2C Transactions</a></li>
+        </ul>
+      </div>
     </>
   )
 }
