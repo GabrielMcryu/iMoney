@@ -27,32 +27,33 @@ function B2cTransactionsList() {
 
   return (
     <>
-        <h1>B2C Transactions</h1>
-        <div className='form-div'>
-            <button onClick={() => navigate("/b2cTransactions")}>Back</button>
+        <div className='container'>
+            <h1>B2C Transactions</h1>
+            <div className='back-btn-section'>
+                <button className='submit-btn' onClick={() => navigate("/b2cTransactions")}>Back</button>
+            </div>
+            <table className='tb-style'>
+                <thead>
+                    <tr>
+                        <th>Sender Account</th>
+                        <th>Merchant</th>
+                        <th>Amount</th>
+                        <th>Receiver Phone Number</th>
+                        <th>Occassion</th>
+                    </tr>
+                </thead>
+                {!loading && (
+                    <tbody>
+                        {b2cTransactions.map((b2cTransaction) => (
+                            <B2cTransaction 
+                                b2cTransaction={b2cTransaction}
+                                key={b2cTransaction.b2cId}
+                            />
+                        ))}
+                    </tbody>
+                )}
+            </table>
         </div>
-        <br /><br />
-        <table>
-            <thead>
-                <tr>
-                    <th>Sender Account</th>
-                    <th>Merchant</th>
-                    <th>Amount</th>
-                    <th>Receiver Phone Number</th>
-                    <th>Occassion</th>
-                </tr>
-            </thead>
-            {!loading && (
-                <tbody>
-                    {b2cTransactions.map((b2cTransaction) => (
-                        <B2cTransaction 
-                            b2cTransaction={b2cTransaction}
-                            key={b2cTransaction.b2cId}
-                        />
-                    ))}
-                </tbody>
-            )}
-        </table>
     </>
   )
 }

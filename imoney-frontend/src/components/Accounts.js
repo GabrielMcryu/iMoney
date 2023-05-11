@@ -66,73 +66,75 @@ const Accounts = () => {
 
   return (
     <>
-        <h1>Accounts</h1>
-        <div className="search-option">
-            <input
-                type="text"
-                name="id"
-                placeholder='Enter Account Number'
-                value={searchAccount.id}
-                onChange={(e) => handleSearchChange(e)}
-                className=""
-            />
-            <button className="btn-search" id="search-btn" onClick={goToAccount}>Search</button>
-            <button onClick={resetSearch}>Clear</button>
-        </div>
+        <div className='container'>
+            <h1>Accounts</h1>
+            <div className="search-option">
+                <input
+                    type="text"
+                    name="id"
+                    placeholder='Enter Account Number'
+                    value={searchAccount.id}
+                    onChange={(e) => handleSearchChange(e)}
+                    className="search-field"
+                />
+                <button className='submit-btn' id="search-btn" onClick={goToAccount}>Search</button>
+                <button className='submit-btn' onClick={resetSearch}>Clear</button>
+            </div>
 
-        <h2>Create An Account</h2>
-        <div className='form-div'>
-            <div>
-                <label>
-                    First Name:
-                </label>
-                <input
-                    type="text"
-                    name="firstName"
-                    value={account.firstName}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Last Name:
-                </label>
-                <input
-                    type="text"
-                    name="lastName"
-                    value={account.lastName}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Phone Number:
-                </label>
-                <input
-                    type="number"
-                    name="phoneNumber"
-                    value={account.phoneNumber}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Date of Birth:
-                </label>
-                <input
-                    type="date"
-                    name="birthDate"
-                    value={account.birthDate}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <button onClick={saveAnAccount}>Save</button>
-                <button onClick={reset}>Clear</button>
+            <div className='form-div'>
+                <h2 className='form-header'>Create An Account</h2>
+                <div>
+                    <label className='form-label'>
+                        First Name:
+                    </label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        value={account.firstName}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Last Name:
+                    </label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        value={account.lastName}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Phone Number:
+                    </label>
+                    <input
+                        type="number"
+                        name="phoneNumber"
+                        value={account.phoneNumber}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Date of Birth:
+                    </label>
+                    <input
+                        type="date"
+                        name="birthDate"
+                        value={account.birthDate}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <button className='submit-btn' onClick={saveAnAccount}>Save</button>
+                    <button className='submit-btn' onClick={reset}>Clear</button>
+                </div>
             </div>
         </div>
     </>

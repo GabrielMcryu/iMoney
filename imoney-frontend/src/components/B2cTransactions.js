@@ -70,87 +70,89 @@ const B2cTransactions = () => {
 
   return (
     <>
-      <h1>B2C Transactions</h1>
-      <div className="search-option">
-        <input
-          type="text"
-          name="accountNumber"
-          placeholder='Enter Account Number'
-          value={searchb2cTransactions.accountNumber}
-          onChange={(e) => handleSearchChange(e)}
-          className=""
-        />
-        <button className="btn-search" id="search-btn" onClick={goToViewb2cTransactions}>Search</button>
-        <button onClick={resetSearch}>Clear</button>
-      </div>
+        <div className='container'>
+            <h1>B2C Transactions</h1>
+            <div className="search-option">
+            <input
+                type="text"
+                name="accountNumber"
+                placeholder='Enter Account Number'
+                value={searchb2cTransactions.accountNumber}
+                onChange={(e) => handleSearchChange(e)}
+                className="search-field"
+            />
+            <button className='submit-btn' id="search-btn" onClick={goToViewb2cTransactions}>Search</button>
+            <button className='submit-btn' onClick={resetSearch}>Clear</button>
+            </div>
 
-      <h2>Create B2C Transaction</h2>
-      <div className='form-div'>
-            <div>
-                <label>
-                    Sender Account Number:
-                </label>
-                <input
-                    type="number"
-                    name="SenderAccount"
-                    value={b2cTransaction.SenderAccount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Receiver Phone Number:
-                </label>
-                <input
-                    type="text"
-                    name="PartyB"
-                    value={b2cTransaction.PartyB}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Amount:
-                </label>
-                <input
-                    type="number"
-                    name="Amount"
-                    value={b2cTransaction.Amount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Remarks:
-                </label>
-                <input
-                    type="text"
-                    name="Remarks"
-                    value={b2cTransaction.Remarks}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Occassion:
-                </label>
-                <input
-                    type="text"
-                    name="Occassion"
-                    value={b2cTransaction.Occassion}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-            <div>
-                <button onClick={saveAB2CTransaction}>Save</button>
-                <button onClick={reset}>Clear</button>
-            </div>
+            <div className='form-div'>
+                <h2 className='form-header'>Create B2C Transaction</h2>
+                <div>
+                    <label className='form-label'>
+                        Sender Account Number:
+                    </label>
+                    <input
+                        type="number"
+                        name="SenderAccount"
+                        value={b2cTransaction.SenderAccount}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Receiver Phone Number:
+                    </label>
+                    <input
+                        type="text"
+                        name="PartyB"
+                        value={b2cTransaction.PartyB}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Amount:
+                    </label>
+                    <input
+                        type="number"
+                        name="Amount"
+                        value={b2cTransaction.Amount}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Remarks:
+                    </label>
+                    <input
+                        type="text"
+                        name="Remarks"
+                        value={b2cTransaction.Remarks}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Occassion:
+                    </label>
+                    <input
+                        type="text"
+                        name="Occassion"
+                        value={b2cTransaction.Occassion}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                <div>
+                    <button className='submit-btn' onClick={saveAB2CTransaction}>Save</button>
+                    <button className='submit-btn' onClick={reset}>Clear</button>
+                </div>
+                </div>
             </div>
         </div>
     </>

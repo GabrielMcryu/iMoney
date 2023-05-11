@@ -33,32 +33,11 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <div className="search-option">
-        <input
-          type="text"
-          name="accountNumber"
-          value={transaction.accountNumber}
-          onChange={(e) => handleChange(e)}
-          className=""
-        />
-        <select className="select-field" onChange={(e) => handleChange(e)} name="merchant" id="search-choice" value={transaction.merchant}>
-          <option value="">Select Merchant</option>
-          <option value="Paypal">Paypal</option>
-          <option value="NCBA">NCBA</option>
-        </select>
-        <button className="btn-search" id="search-btn" onClick={goToViewTransactions}>Search</button>
-        <button onClick={reset}>Clear</button>
-      </div>
-      <div className="search-option">
-        <button className="btn-search" id="search-btn" onClick={() => navigate("/createTransaction")}>Make a Transaction</button>
-      </div>
-      <div className="search-option">
-        <ul>
-          <li><a href="/accounts">Search Account</a></li>
-          <li><a href="/imoneyTransactions">iMoney Transactions</a></li>
-          <li><a href="/c2bTransactions">C2B Transactions</a></li>
-          <li><a href="/b2cTransactions">B2C Transactions</a></li>
-        </ul>
+      <div className="container grid-links">
+        <div className="dash-links"><a className="dash-link" href="/accounts">Search Account</a></div>
+        <div className="dash-links"><a className="dash-link" href="/imoneyTransactions">iMoney Transactions</a></div>
+        <div className="dash-links"><a className="dash-link" href="/c2bTransactions">C2B Transactions</a></div>
+        <div className="dash-links"><a className="dash-link" href="/b2cTransactions">B2C Transactions</a></div>
       </div>
     </>
   )

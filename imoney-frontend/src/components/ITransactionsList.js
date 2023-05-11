@@ -27,30 +27,31 @@ const ITransactionsList = () => {
 
   return (
     <>
-        <h1>Imoney Transactions</h1>
-        <div className='form-div'>
-            <button onClick={() => navigate("/imoneyTransactions")}>Back</button>
-            <br /><br />
+        <div className='container'>
+            <h1>Imoney Transactions</h1>
+            <div className='back-btn-section'>
+                <button className='submit-btn' onClick={() => navigate("/imoneyTransactions")}>Back</button>
+            </div>
+            <table className='tb-style'>
+                <thead>
+                    <tr>
+                        <th>Sender Account</th>
+                        <th>Receiver Account</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                {!loading && (
+                    <tbody>
+                        {iTransactions.map((iTransaction) => (
+                            <ITransaction
+                                iTransaction={iTransaction}
+                                key={iTransaction.iTransation}
+                            />
+                        ))}
+                    </tbody>
+                )}
+            </table>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sender Account</th>
-                    <th>Receiver Account</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            {!loading && (
-                <tbody>
-                    {iTransactions.map((iTransaction) => (
-                        <ITransaction
-                            iTransaction={iTransaction}
-                            key={iTransaction.iTransation}
-                        />
-                    ))}
-                </tbody>
-            )}
-        </table>
     </>
   )
 }

@@ -72,73 +72,75 @@ const C2bTransactions = () => {
 
   return (
     <>
-      <h1>C2B Transactions</h1>
-      <div className="search-option">
-        <input
-          type="text"
-          name="accountNumber"
-          placeholder='Enter Account Number'
-          value={searchc2bTransactions.accountNumber}
-          onChange={(e) => handleSearchChange(e)}
-          className=""
-        />
-        <button className="btn-search" id="search-btn" onClick={goToViewc2bTransactions}>Search</button>
-        <button onClick={resetSearch}>Clear</button>
-      </div>
+        <div className='container'>
+            <h1>C2B Transactions</h1>
+            <div className="search-option">
+                <input
+                type="text"
+                name="accountNumber"
+                placeholder='Enter Account Number'
+                value={searchc2bTransactions.accountNumber}
+                onChange={(e) => handleSearchChange(e)}
+                className="search-field"
+                />
+                <button className='submit-btn' id="search-btn" onClick={goToViewc2bTransactions}>Search</button>
+                <button className='submit-btn' onClick={resetSearch}>Clear</button>
+            </div>
 
-      <h2>Create C2B Transaction</h2>
-      <div className='form-div'>
-            <div>
-                <label>
-                    Your Name:
-                </label>
-                <input
-                    type="text"
-                    name="SenderName"
-                    value={c2bTransaction.SenderName}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Your Phone Number:
-                </label>
-                <input
-                    type="number"
-                    name="Msisdn"
-                    value={c2bTransaction.Msisdn}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Receiver Account Number:
-                </label>
-                <input
-                    type="number"
-                    name="ReceiverAccountNumber"
-                    value={c2bTransaction.ReceiverAccountNumber}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Amount:
-                </label>
-                <input
-                    type="number"
-                    name="Amount"
-                    value={c2bTransaction.Amount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <button onClick={saveAC2BTransaction}>Save</button>
-                <button onClick={reset}>Clear</button>
+            <div className='form-div'>
+                <h2 className='form-header'>Create C2B Transaction</h2>
+                <div>
+                    <label className='form-label'>
+                        Your Name:
+                    </label>
+                    <input
+                        type="text"
+                        name="SenderName"
+                        value={c2bTransaction.SenderName}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Your Phone Number:
+                    </label>
+                    <input
+                        type="number"
+                        name="Msisdn"
+                        value={c2bTransaction.Msisdn}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Receiver Account Number:
+                    </label>
+                    <input
+                        type="number"
+                        name="ReceiverAccountNumber"
+                        value={c2bTransaction.ReceiverAccountNumber}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <label className='form-label'>
+                        Amount:
+                    </label>
+                    <input
+                        type="number"
+                        name="Amount"
+                        value={c2bTransaction.Amount}
+                        onChange={(e) => handleChange(e)}
+                        className="input-field"
+                    />
+                </div>
+                <div>
+                    <button className='submit-btn' onClick={saveAC2BTransaction}>Save</button>
+                    <button className='submit-btn' onClick={reset}>Clear</button>
+                </div>
             </div>
         </div>
     </>

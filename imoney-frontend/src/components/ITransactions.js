@@ -65,62 +65,64 @@ const ITransactions = () => {
 
   return (
     <>
-      <h1>ITransactions</h1>
-      <div className="search-option">
-        <input
-          type="text"
-          name="accountNumber"
-          placeholder='Enter Account Number'
-          value={searchITransactions.accountNumber}
-          onChange={(e) => handleSearchChange(e)}
-          className=""
-        />
-        <button className="btn-search" id="search-btn" onClick={goToViewITransactions}>Search</button>
-        <button onClick={resetSearch}>Clear</button>
-      </div>
+      <div className='container'>
+        <h1>ITransactions</h1>
+        <div className="search-option">
+          <input
+            type="text"
+            name="accountNumber"
+            placeholder='Enter Account Number'
+            value={searchITransactions.accountNumber}
+            onChange={(e) => handleSearchChange(e)}
+            className="search-field"
+          />
+          <button className='submit-btn'  id="search-btn" onClick={goToViewITransactions}>Search</button>
+          <button className='submit-btn'  onClick={resetSearch}>Clear</button>
+        </div>
 
-      <h2>Create Imoney Transaction</h2>
-      <div className='form-div'>
-            <div>
-                <label>
-                    Sender Account Number:
-                </label>
-                <input
-                    type="number"
-                    name="senderAccount"
-                    value={itransaction.senderAccount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Receiver Account Number:
-                </label>
-                <input
-                    type="number"
-                    name="receiverAccount"
-                    value={itransaction.receiverAccount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-                <label>
-                    Amount:
-                </label>
-                <input
-                    type="number"
-                    name="amount"
-                    value={itransaction.amount}
-                    onChange={(e) => handleChange(e)}
-                    className=""
-                />
-            </div>
-            <div>
-              <button onClick={saveAnITransaction}>Save</button>
-              <button onClick={reset}>Clear</button>
-            </div>
+        <div className='form-div'>
+          <h2 className="form-header">Create Imoney Transaction</h2>
+              <div>
+                  <label className='form-label'>
+                      Sender Account Number:
+                  </label>
+                  <input
+                      type="number"
+                      name="senderAccount"
+                      value={itransaction.senderAccount}
+                      onChange={(e) => handleChange(e)}
+                      className="input-field"
+                  />
+              </div>
+              <div>
+                  <label className='form-label'>
+                      Receiver Account Number:
+                  </label>
+                  <input
+                      type="number"
+                      name="receiverAccount"
+                      value={itransaction.receiverAccount}
+                      onChange={(e) => handleChange(e)}
+                      className="input-field"
+                  />
+              </div>
+              <div>
+                  <label className='form-label'>
+                      Amount:
+                  </label>
+                  <input
+                      type="number"
+                      name="amount"
+                      value={itransaction.amount}
+                      onChange={(e) => handleChange(e)}
+                      className="input-field"
+                  />
+              </div>
+              <div>
+                <button className='submit-btn' onClick={saveAnITransaction}>Save</button>
+                <button className='submit-btn' onClick={reset}>Clear</button>
+              </div>
+          </div>
         </div>
     </>
   )

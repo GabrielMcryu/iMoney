@@ -27,31 +27,32 @@ const C2bTransactionsList = () => {
 
   return (
     <>
-        <h1>C2B Transactions</h1>
-        <div className='form-div'>
-            <button onClick={() => navigate("/c2bTransactions")}>Back</button>
+        <div className='container'>
+            <h1>C2B Transactions</h1>
+            <div className='back-btn-section'>
+                <button className='submit-btn' onClick={() => navigate("/c2bTransactions")}>Back</button>
+            </div>
+            <table className='tb-style'>
+                <thead>
+                    <tr>
+                        <th>Sender Name</th>
+                        <th>Mercant</th>
+                        <th>Receiver Account</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                {!loading && (
+                    <tbody>
+                        {c2bTransactions.map((c2bTransaction) => (
+                            <C2bTransaction 
+                                c2bTransaction={c2bTransaction}
+                                key={c2bTransaction.c2bId}
+                            />
+                        ))}
+                    </tbody>
+                )}
+            </table>
         </div>
-        <br /><br />
-        <table>
-            <thead>
-                <tr>
-                    <th>Sender Name</th>
-                    <th>Mercant</th>
-                    <th>Receiver Account</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            {!loading && (
-                <tbody>
-                    {c2bTransactions.map((c2bTransaction) => (
-                        <C2bTransaction 
-                            c2bTransaction={c2bTransaction}
-                            key={c2bTransaction.c2bId}
-                        />
-                    ))}
-                </tbody>
-            )}
-        </table>
     </>
   )
 }

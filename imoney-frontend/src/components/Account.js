@@ -31,14 +31,30 @@ function Account() {
   }, []);
 
   return (
-    <div className='search-option'>
-      <ul>
-        <li>First Name: {account.firstName}</li>
-        <li>Last Name: {account.lastName}</li>
-        <li>Balance: {account.balance}</li>
-        <li>Phone number: {account.phoneNumber}</li>
-        <li>Birth Date: {new Date(account.birthDate).toLocaleDateString()}</li>
-      </ul>
+    <div className='container'>
+      <h1>Account Details</h1>
+      <div className='details-section'>
+        <div className='details'>
+          <p>First Name:</p>
+          <p>{account.firstName}</p>
+        </div>
+        <div className='details'>
+          <p>Last Name:</p>
+          <p>{account.lastName}</p>
+        </div>
+        <div className='details'>
+          <p>Balance:</p>
+          <p>{account.balance}</p>
+        </div>
+        <div className='details'>
+          <p>Phone Number:</p>
+          <p>{account.phoneNumber}</p>
+        </div>
+        <div className='details'>
+          <p>Date of Birth:</p>
+          <p>{new Date(account.birthDate).toLocaleDateString()}</p>
+        </div>
+      </div>
     </div>
   )
 }
