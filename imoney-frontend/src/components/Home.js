@@ -54,7 +54,7 @@ const Home = () => {
       </div>
       <div className="search-option">
         <ul>
-          <li><a href="#">Search Account</a></li>
+          <li><a href="/accounts">Search Account</a></li>
           <li><a href="/imoneyTransactions">iMoney Transactions</a></li>
           <li><a href="/c2bTransactions">C2B Transactions</a></li>
           <li><a href="/b2cTransactions">B2C Transactions</a></li>

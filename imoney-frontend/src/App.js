@@ -11,6 +11,8 @@ import C2bTransactions from './components/C2bTransactions';
 import ITransactionsList from './components/ITransactionsList';
 import C2bTransactionsList from './components/C2bTransactionsList';
 import B2cTransactionsList from './components/B2cTransactionsList';
+import Accounts from './components/Accounts';
+import Account from './components/Account';
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
         <Route path='/imoneyTransactions' element={<ITransactions />} />
         <Route path='/getImoneyTransactions/:accountNumber' element={<ITransactionsList />} />
         <Route path='/b2cTransactions' element={<B2cTransactions />} />
-        <Route path='getb2cTransactions/:accountNumber' element={<B2cTransactionsList />} />
+        <Route path='/getb2cTransactions/:accountNumber' element={<B2cTransactionsList />} />
         <Route path='/c2bTransactions' element={<C2bTransactions />}/>
         <Route path='/getc2bTransactions/:accountNumber' element={<C2bTransactionsList />} />
+        <Route path='/accounts' element={<Accounts />} />
+        <Route path='/account/:id' element={<Account />} />
       </Routes>
     </BrowserRouter>
     </>
