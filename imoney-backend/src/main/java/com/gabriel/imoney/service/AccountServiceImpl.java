@@ -1,5 +1,7 @@
 package com.gabriel.imoney.service;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public AccountEntity saveAccount(@Valid AccountEntity accountEntity) {
 		return accountRepository.save(accountEntity);
+	}
+
+	@Override
+	public AccountEntity getAccountById(Long accountNumber) {
+		return accountRepository.getByAccountId(accountNumber);
 	}
 
 }
