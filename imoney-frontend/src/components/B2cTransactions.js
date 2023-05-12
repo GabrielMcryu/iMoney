@@ -37,6 +37,7 @@ const B2cTransactions = () => {
         saveB2CTransaction(b2cTransaction)
             .then((response) => {
                 console.log(response);
+                reset(e);
             })
             .catch((error) => {
                 console.log(error);

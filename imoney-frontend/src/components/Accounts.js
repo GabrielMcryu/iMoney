@@ -35,10 +35,12 @@ const Accounts = () => {
         saveAccount(account)
             .then((response) => {
                 console.log(response);
+                reset(e);
             })
             .catch((error) => {
                 console.log(error);
             })
+        
     }
 
     const goToAccount = (e) => {

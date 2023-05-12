@@ -35,7 +35,7 @@ const ITransactions = () => {
     saveITransaction(itransaction)
         .then((response) => {
           console.log(response);
-          // reset();
+          reset(e);
         })
         .catch((error) => {
             console.log(error);

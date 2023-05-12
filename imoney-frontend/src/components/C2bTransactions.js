@@ -38,6 +38,7 @@ const C2bTransactions = () => {
         saveC2BTransaction(c2bTransaction)
             .then((response) => {
                 console.log(response);
+                reset(e);
             })
             .catch((error) => {
                 console.log(error);
