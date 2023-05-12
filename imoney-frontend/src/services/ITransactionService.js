@@ -9,3 +9,7 @@ export const saveITransaction = (itransaction) => {
 export const getITransactionByAccountNumber = (accountNumber) => {
     return axios.get(I_TRANSACTION_API_BASE_URL + "/" + accountNumber);
 }
+
+export const getITransactionById = (id) => {
+    return axios.get(I_TRANSACTION_API_BASE_URL + "/" + "details" + "/" + id);
+}

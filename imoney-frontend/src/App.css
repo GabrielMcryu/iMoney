@@ -143,3 +143,14 @@ h1 {
   padding: 1.2rem;
   box-shadow: 0 1.2rem 1.2rem rgba(0, 0, 0, 0.04);
 }
+
+.details-link {
+  background-color: #17cf97;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+

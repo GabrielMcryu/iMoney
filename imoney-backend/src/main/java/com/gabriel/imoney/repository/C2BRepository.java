@@ -10,4 +10,6 @@ import com.gabriel.imoney.entity.C2bEntity;
 @Repository
 public interface C2BRepository extends JpaRepository<C2bEntity, Long>{
 	public List<C2bEntity> findAllByReceiverAccountNumber(Long ReceiverAccountNumber);
+	
+	C2bEntity findByC2bId(Long id);
 }

@@ -93,6 +93,21 @@ public class TransactionController {
 		return transactionService.fetchB2cTransactionsBySender(senderAccountNumber);
 	}
 	
+	@GetMapping("/itransaction/details/{id}")
+	public TransactionEntity getITransactionById(@PathVariable Long id) {
+		return transactionService.getITransactionById(id);
+	}
+	
+	@GetMapping("/c2b-transaction/details/{id}")
+	public C2bEntity getC2bById(@PathVariable Long id) {
+		return transactionService.getByC2bId(id);
+	}
+	
+	@GetMapping("/b2c-transaction/details/{id}")
+	public B2cEntity getB2cById(@PathVariable Long id) {
+		return transactionService.getB2cById(id);
+	}
+	
 	/////////////////////////////////////////////
 	// MPESA Transaction Region
 	

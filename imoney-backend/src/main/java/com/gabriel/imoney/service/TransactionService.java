@@ -46,4 +46,12 @@ public interface TransactionService {
 	CommonSyncResponse createB2CTransaction(B2CData b2CData);
 	
 	List<B2cEntity> fetchB2cTransactionsBySender(Long senderAccount);
+	
+	TransactionEntity getITransactionById(Long iTransactionId);
+	
+	C2bEntity getByC2bId(Long c2bId);
+	
+	B2cEntity getB2cById(Long b2cId);
+	
+	
 }

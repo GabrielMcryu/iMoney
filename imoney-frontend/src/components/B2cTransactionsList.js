@@ -40,6 +40,7 @@ function B2cTransactionsList() {
                         <th>Amount</th>
                         <th>Receiver Phone Number</th>
                         <th>Occassion</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 {!loading && (

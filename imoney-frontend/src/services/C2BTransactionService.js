@@ -9,3 +9,7 @@ export const saveC2BTransaction = (c2bTransaction) => {
 export const getC2BTransactionByAccountNumber = (accountNumber) => {
     return axios.get(C2B_TRANSACTION_API_BASE_URL + "c2b-transaction" + "/" + accountNumber);
 }
+
+export const getC2bById = (id) => {
+    return axios.get(C2B_TRANSACTION_API_BASE_URL + "c2b-transaction" + "/" + "details" + "/" + id);
+}

@@ -10,4 +10,6 @@ import com.gabriel.imoney.entity.ITransactionEntity;
 @Repository
 public interface ITransactionRepository extends JpaRepository<ITransactionEntity, Long> {
 	public List<ITransactionEntity> findAllBySenderAccount(Long senderAccount);
+	
+//	ITransactionEntity findByITransation(Long iTransaction);
 }

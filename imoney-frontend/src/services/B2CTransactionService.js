@@ -9,3 +9,7 @@ export const saveB2CTransaction = (b2cTransaction) => {
 export const getb2cTransactionByAccountNumber = (accountNumber) => {
     return axios.get(B2C_TRANSACTION_API_BASE_URL + "b2c-transaction" + "/" + accountNumber);
 }
+
+export const getB2cById = (id) => {
+    return axios.get(B2C_TRANSACTION_API_BASE_URL + "b2c-transaction" + "/" + "details" + "/" + id);
+}

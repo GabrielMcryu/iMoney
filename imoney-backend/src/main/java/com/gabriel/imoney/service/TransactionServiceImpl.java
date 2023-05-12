@@ -10,6 +10,7 @@ import static com.gabriel.imoney.utils.Constants.JSON_MEDIA_TYPE;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -418,6 +419,23 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public List<B2cEntity> fetchB2cTransactionsBySender(Long senderAccount) {
 		return b2CRepository.findAllBySenderAccount(senderAccount);
+	}
+
+	@Override
+	public TransactionEntity getITransactionById(Long iTransactionId) {
+		Optional<TransactionEntity> optionalTransaction = transactionRepository.findById(iTransactionId);
+	    return optionalTransaction.orElse(null);
+	}
+
+	@Override
+	public C2bEntity getByC2bId(Long c2bId) {
+		return c2BRepository.findByC2bId(c2bId);
+	}
+
+	@Override
+	public B2cEntity getB2cById(Long b2cId) {
+		// TODO Auto-generated method stub
+		return b2CRepository.findByB2cId(b2cId);
 	}
 
 	

@@ -33,6 +33,9 @@ function Account() {
   return (
     <div className='container'>
       <h1>Account Details</h1>
+      <div className='back-btn-section'>
+          <button className='submit-btn' onClick={() => navigate("/accounts")}>Back</button>
+      </div>
       <div className='details-section'>
         <div className='details'>
           <p>First Name:</p>

@@ -27,7 +27,7 @@ const ITransactionsList = () => {
 
   return (
     <>
-        <div className='container'>
+        <div className='container bt-spacing'>
             <h1>Imoney Transactions</h1>
             <div className='back-btn-section'>
                 <button className='submit-btn' onClick={() => navigate("/imoneyTransactions")}>Back</button>
@@ -38,6 +38,7 @@ const ITransactionsList = () => {
                         <th>Sender Account</th>
                         <th>Receiver Account</th>
                         <th>Amount</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 {!loading && (

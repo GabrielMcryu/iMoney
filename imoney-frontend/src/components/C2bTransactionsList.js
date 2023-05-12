@@ -27,7 +27,7 @@ const C2bTransactionsList = () => {
 
   return (
     <>
-        <div className='container'>
+        <div className='container bt-spacing'>
             <h1>C2B Transactions</h1>
             <div className='back-btn-section'>
                 <button className='submit-btn' onClick={() => navigate("/c2bTransactions")}>Back</button>
@@ -39,6 +39,7 @@ const C2bTransactionsList = () => {
                         <th>Mercant</th>
                         <th>Receiver Account</th>
                         <th>Amount</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 {!loading && (
