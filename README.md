@@ -27,5 +27,11 @@ The Application has multiple features such as:
 - Account Creation
 - View Transaction Details
 
+# Future Improvements
+This project is still a work in progress. Improvements and Features to be added such as:
+- Authentication and Security
+- UI Improvements
+- Adding Unit Tests
+
 # Requirements
 To run this application, you will need to install java 11 to run spring boot, and nodejs to run react.
